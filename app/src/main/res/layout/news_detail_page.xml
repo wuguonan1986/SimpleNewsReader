@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="detailViewModel"
+            type="wu.victor.snr.business.viewmodels.NewsDetailViewModel" />
+    </data>
+
+
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#123456">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@{detailViewModel.title}"
+                android:gravity="center_vertical"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:paddingLeft="10dp"
+                android:layout_weight="1"
+                tools:text="标题"/>
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/favorite_white"
+                bind:activeState="@{detailViewModel.favorited.get()}"
+                bind:clickCommand="@{detailViewModel.onFavoriteClicked}"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/share"
+                bind:clickCommand="@{detailViewModel.onShareClicked}"/>
+        </LinearLayout>
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/webview"
+            app:render="@{detailViewModel.html}"/>
+
+    </LinearLayout>
+</layout>

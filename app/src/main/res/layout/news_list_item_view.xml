@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="itemViewModel"
+            type="wu.victor.snr.business.viewmodels.NewsItemViewModel" />
+    </data>
+    <LinearLayout android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="80dp"
+                  android:padding="5dp"
+                  android:background="@drawable/item_background"
+                  bind:clickCommand="@{itemViewModel.onClickCommand}">
+
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="70dp"
+            android:scaleType="center"
+            android:layout_gravity="center_vertical"
+            bind:uri="@{itemViewModel.url}"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:textColor="#dddddd"
+                android:textSize="15sp"
+                android:maxLines="2"
+                android:text="@{itemViewModel.title}"
+                tools:text="新闻标题"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:textColor="#333333"
+                android:textSize="8sp"
+                android:maxLines="1"
+                android:text="@{itemViewModel.author}"
+                tools:text="人民网"/>
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

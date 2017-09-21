@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="itemListViewModel"
+            type="wu.victor.snr.business.viewmodels.NewsListViewModel" />
+        <import type="com.kelin.mvvmlight.bindingadapter.recyclerview.LayoutManagers" />
+    </data>
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#123456">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:textSize="18sp"
+                android:textColor="#ffffff"
+                android:text="@{itemListViewModel.type.getName()}"
+                tools:text="新闻"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/favorite"
+                bind:clickCommand="@{itemListViewModel.onFavoriteClicked}"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/history"
+                bind:clickCommand="@{itemListViewModel.onHistoryClicked}"/>
+        </LinearLayout>
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            bind:onRefreshCommand="@{itemListViewModel.onRefreshCommand}"
+            bind:refreshing="@{itemListViewModel.isRefreshing}">
+            <!--bind:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#456789"
+                bind:viewModels="@{itemListViewModel.newsList}"
+                bind:itemView="@{itemListViewModel.itemRes}"
+                bind:itemViewModelId="@{itemListViewModel.itemViewModelId}"
+                bind:layoutManager="@{LayoutManagers.linear()}"
+                bind:onLoadMoreCommand="@{itemListViewModel.onLoadMoreCommand}"
+                bind:divider="@drawable/recycler_divider">
+
+
+            </android.support.v7.widget.RecyclerView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+</layout>

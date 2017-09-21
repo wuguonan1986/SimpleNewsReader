@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+//apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    signingConfigs {
+        debug {
+            keyPassword '19860718nan'
+            storeFile file('D:/android-sdk-windows/keystore/demo.keystore')
+            storePassword '19860718nan'
+            keyAlias 'demo.keystore'
+        }
+        release {
+            keyAlias 'demo.keystore'
+            keyPassword '19860718nan'
+            storeFile file('D:/android-sdk-windows/keystore/demo.keystore')
+            storePassword '19860718nan'
+        }
+    }
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "wu.victor.snr"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    dataBinding {
+        enabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true
+            jniDebuggable true
+            signingConfig signingConfigs.release
+            renderscriptDebuggable true
+        }
+        debug {
+            debuggable true
+            jniDebuggable true
+            signingConfig signingConfigs.debug
+        }
+    }
+    sourceSets { main { res.srcDirs = ['src/main/res'] } }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    //    compile('com.android.support:recyclerview-v7:25.2.0') {
+    //        exclude module: 'support-v4'
+    //    }
+    compile 'com.squareup.retrofit2:retrofit:2.0.1'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.1'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    testCompile 'junit:junit:4.12'
+    //    apt "com.github.Raizlabs.DBFlow:dbflow-processor:3.0.0-beta4"
+    compile project(':mvvmlight')
+    compile project(':foxframe')
+    provided 'com.github.Raizlabs.DBFlow:dbflow-processor:3.1.1'
+    compile 'com.github.Raizlabs.DBFlow:dbflow-core:3.1.1'
+    compile 'com.github.Raizlabs.DBFlow:dbflow:3.1.1'
+}
